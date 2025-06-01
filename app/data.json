@@ -495,5 +495,61 @@
     "completed_date": null,
     "rating": null,
     "notes": null
+  },
+  {
+    "title": "Supernova",
+    "description": "Burgers",
+    "location": "W1F 0AH",
+    "coords": {
+      "lat": 51.512623,
+      "lng": -0.1344027
+    },
+    "cost": 0,
+    "tags": [
+      "Burgers",
+      "Food",
+      "Central"
+    ],
+    "completed": false,
+    "completed_date": null,
+    "rating": null,
+    "notes": null
+  },
+  {
+    "title": "Japanese Market",
+    "description": "Food market",
+    "location": "N1C 4AG",
+    "coords": {
+      "lat": 51.5334784,
+      "lng": -0.1250453
+    },
+    "cost": 0,
+    "tags": [
+      "Food",
+      "Central",
+      "Market",
+      "Free"
+    ],
+    "completed": false,
+    "completed_date": null,
+    "rating": null,
+    "notes": null
+  },
+  {
+    "title": "Cake Hole Cafe",
+    "description": "Cafe near Flower Market, get off at Bethnal Green overground",
+    "location": "E2 7QB",
+    "coords": {
+      "lat": 51.5284615,
+      "lng": -0.0706367
+    },
+    "cost": 0,
+    "tags": [
+      "Cafe"
+    ],
+    "completed": false,
+    "completed_date": null,
+    "rating": null,
+    "notes": null
   }
 ]
