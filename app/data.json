@@ -1,0 +1,499 @@
+[
+  {
+    "title": "Neon Museum",
+    "description": "God's Own Junkyard, close to Wood Street",
+    "location": "E17 9HQ",
+    "coords": {
+      "lat": 51.5838902,
+      "lng": -0.008111199999999999
+    },
+    "cost": "10",
+    "tags": [
+      "Cafe",
+      "Museum",
+      "Quick",
+      "Walthamstow"
+    ],
+    "completed": true,
+    "rating": 7,
+    "completed_date": "2025-05-31",
+    "notes": "Cute place but small, can only spend 45-60 mins there. And not much else around except for breweries. Just lights but vibes were an  8"
+  },
+  {
+    "title": "Babylon Park",
+    "description": "~2h duration. Entry to the park is free, but access to rides etc. can cost \u00a330. 8 min walk from Camden station",
+    "location": "NW1 8QU",
+    "coords": {
+      "lat": 51.5420993,
+      "lng": -0.1450657
+    },
+    "cost": "0",
+    "tags": [
+      "Theme park",
+      "Camden",
+      "Rollercoaster"
+    ],
+    "completed": false
+  },
+  {
+    "title": "Hampstead Heath",
+    "description": "30 min walk from Camden Mkt",
+    "location": "NW5 1LT",
+    "coords": {
+      "lat": 51.5562587,
+      "lng": -0.1510821
+    },
+    "cost": "0",
+    "tags": [
+      "Park",
+      "Outdoors",
+      "Free",
+      "Nature"
+    ],
+    "completed": false
+  },
+  {
+    "title": "The Terrace Bakery",
+    "description": "More like a restaurant than a cafe it seems.",
+    "location": "NW10 6QN",
+    "coords": {
+      "lat": 51.5269614,
+      "lng": -0.2599033
+    },
+    "cost": "15",
+    "tags": [
+      "Bakery",
+      "Meal",
+      "Date"
+    ],
+    "completed": false
+  },
+  {
+    "title": "Brick Lane",
+    "description": "Artsy outdoors and near to a lot of other stuff. Bagel shop is here etc",
+    "location": "E1 6QL",
+    "coords": {
+      "lat": 51.5208883,
+      "lng": -0.0721966
+    },
+    "cost": "0",
+    "tags": [
+      "Free",
+      "Bakery",
+      "Cafe",
+      "Outdoors"
+    ],
+    "completed": true,
+    "rating": 7,
+    "completed_date": "2025-05-31",
+    "notes": "EBI: get to the indoor market "
+  },
+  {
+    "title": "Night Cafe",
+    "description": "\u00a37 entry. \u00a310 on Fridays. Open until 3am so can come here late/last. Complimentary tea and coffee",
+    "location": "E1 7EZ",
+    "coords": {
+      "lat": 51.51655239999999,
+      "lng": -0.07648769999999999
+    },
+    "cost": "7",
+    "tags": [
+      "Cafe",
+      "Indoors",
+      "Date"
+    ],
+    "completed": false,
+    "rating": "'",
+    "completed_date": "2025-05-28"
+  },
+  {
+    "title": "Devi Dhaba",
+    "description": "Cute, cheap India restaurant. \"Any 3 curries with rice for a special price\"",
+    "location": "EC2A 4HU",
+    "coords": {
+      "lat": 51.523364,
+      "lng": -0.0822262
+    },
+    "cost": "15",
+    "tags": [
+      "Indoors",
+      "Meal",
+      "Date"
+    ],
+    "completed": false
+  },
+  {
+    "title": "Horizon 22",
+    "description": "Tickets released every Monday 2 weeks in advance from 10am. ",
+    "location": "EC2N 4AJ",
+    "coords": {
+      "lat": 51.5150345,
+      "lng": -0.0826339
+    },
+    "cost": "0",
+    "tags": [
+      "Free",
+      "View",
+      "Quick"
+    ],
+    "completed": false
+  },
+  {
+    "title": "Barbican Conservatory",
+    "description": "Free but ticketed",
+    "location": "EC2Y 8DS",
+    "coords": {
+      "lat": 51.5199607,
+      "lng": -0.0941027
+    },
+    "cost": "0",
+    "tags": [
+      "Free"
+    ],
+    "completed": false
+  },
+  {
+    "title": "Crossrail Place Roof Garden",
+    "description": "",
+    "location": "E14 5AB",
+    "coords": {
+      "lat": 51.5049381,
+      "lng": -0.0194963
+    },
+    "cost": 0,
+    "tags": [
+      ""
+    ],
+    "completed": false
+  },
+  {
+    "title": "Jubilee Park",
+    "description": "",
+    "location": "E14 5JP",
+    "coords": {
+      "lat": 51.50293680000001,
+      "lng": -0.0208079
+    },
+    "cost": 0,
+    "tags": [
+      ""
+    ],
+    "completed": false
+  },
+  {
+    "title": "2 Love (Coffee)",
+    "description": "",
+    "location": "SE1 7LB",
+    "coords": {
+      "lat": 51.4950492,
+      "lng": -0.1201955
+    },
+    "cost": 0,
+    "tags": [
+      ""
+    ],
+    "completed": false
+  },
+  {
+    "title": "Tokyo Bagel",
+    "description": "",
+    "location": "SE1 7AB",
+    "coords": {
+      "lat": 51.5015023,
+      "lng": -0.1115728
+    },
+    "cost": 0,
+    "tags": [
+      ""
+    ],
+    "completed": false
+  },
+  {
+    "title": "Bus Cafe",
+    "description": "",
+    "location": "SE1 8TE",
+    "coords": {
+      "lat": 51.50283030000001,
+      "lng": -0.1091548
+    },
+    "cost": 0,
+    "tags": [
+      ""
+    ],
+    "completed": false
+  },
+  {
+    "title": "Tate Modern",
+    "description": "",
+    "location": "SE1 9TG",
+    "coords": {
+      "lat": 51.5076182,
+      "lng": -0.09937349999999999
+    },
+    "cost": 0,
+    "tags": [
+      ""
+    ],
+    "completed": false
+  },
+  {
+    "title": "Natural History Museum",
+    "description": "",
+    "location": "SW7 5BD",
+    "coords": {
+      "lat": 51.4965643,
+      "lng": -0.1768679
+    },
+    "cost": 0,
+    "tags": [
+      ""
+    ],
+    "completed": false
+  },
+  {
+    "title": "Museum Street",
+    "description": "",
+    "location": "WC1A",
+    "coords": {
+      "lat": 51.5179002,
+      "lng": -0.1229687
+    },
+    "cost": 0,
+    "tags": [
+      ""
+    ],
+    "completed": false
+  },
+  {
+    "title": "John Lewis (Free Cake and Hot Drink)",
+    "description": "",
+    "location": "W1C 1DX",
+    "coords": {
+      "lat": 51.51505849999999,
+      "lng": -0.1450839
+    },
+    "cost": 0,
+    "tags": [
+      "Cafe"
+    ],
+    "completed": false
+  },
+  {
+    "title": "Icco Pizza",
+    "description": "",
+    "location": "W1T 4LU",
+    "coords": {
+      "lat": 51.519439,
+      "lng": -0.13607
+    },
+    "cost": 0,
+    "tags": [
+      ""
+    ],
+    "completed": false
+  },
+  {
+    "title": "Top Secret Comedy Club",
+    "description": "\u00a31 entry Monday nights - verify before going",
+    "location": "WC2B 5PD",
+    "coords": {
+      "lat": 51.515432,
+      "lng": -0.1227719
+    },
+    "cost": 0,
+    "tags": [
+      ""
+    ],
+    "completed": false
+  },
+  {
+    "title": "Royal Opera House",
+    "description": "Located next to Covent Garden, if you go inside and up to the 5th floor, there is a free terrace with a good view",
+    "location": "WC2E 9DD",
+    "coords": {
+      "lat": 51.513047,
+      "lng": -0.1226538
+    },
+    "cost": 0,
+    "tags": [
+      ""
+    ],
+    "completed": false
+  },
+  {
+    "title": "Outernet",
+    "description": "",
+    "location": "WC2H 8LH",
+    "coords": {
+      "lat": 51.5157144,
+      "lng": -0.1291885
+    },
+    "cost": 0,
+    "tags": [
+      "Free"
+    ],
+    "completed": false
+  },
+  {
+    "title": "Fostok Halab",
+    "description": "Cheap, good quality shawarma in the back",
+    "location": "W3 9QP",
+    "coords": {
+      "lat": 51.5085365,
+      "lng": -0.2776389
+    },
+    "cost": 0,
+    "tags": [
+      ""
+    ],
+    "completed": false
+  },
+  {
+    "title": "Mrs Bakery",
+    "description": "",
+    "location": "WC2H 7JJ",
+    "coords": {
+      "lat": 51.5118162,
+      "lng": -0.128916
+    },
+    "cost": 0,
+    "tags": [
+      "Bakery"
+    ],
+    "completed": false
+  },
+  {
+    "title": "Noodle Nova",
+    "description": "400 year old building, only building in the strand area that survived the great fire of London. Good history and aesthetics, Chinese food",
+    "location": "WC2R 1BF",
+    "coords": {
+      "lat": 51.51346359999999,
+      "lng": -0.1121877
+    },
+    "cost": 0,
+    "tags": [
+      ""
+    ],
+    "completed": false
+  },
+  {
+    "title": "Arte Pizza",
+    "description": "Alessia's friend's mother pizza business",
+    "location": "EN2 6NN",
+    "coords": {
+      "lat": 51.659157,
+      "lng": -0.0875444
+    },
+    "cost": 0,
+    "tags": [
+      "Pizza"
+    ],
+    "completed": false
+  },
+  {
+    "title": "Tonkotsu Ramen Bar",
+    "description": "Ramen yummy",
+    "location": "E17 4BS",
+    "coords": {
+      "lat": 51.585459,
+      "lng": -0.0200384
+    },
+    "cost": "0",
+    "tags": [
+      "Walthamstow"
+    ],
+    "completed": false,
+    "rating": 5,
+    "completed_date": "2025-05-28"
+  },
+  {
+    "title": "Golden Gate Bakery",
+    "description": "Chinatown really nice bakery",
+    "location": "W1D 5BR",
+    "coords": {
+      "lat": 51.5119596,
+      "lng": -0.1311439
+    },
+    "cost": "10",
+    "tags": [
+      "Bakery"
+    ],
+    "completed": false,
+    "rating": 3,
+    "completed_date": "2025-05-28"
+  },
+  {
+    "title": "The Green Park",
+    "description": "Next to Buckingham Palace",
+    "location": "SW1A 1AA",
+    "coords": {
+      "lat": 51.50101009999999,
+      "lng": -0.1415627
+    },
+    "cost": "0",
+    "tags": [
+      "Park",
+      "Picnic"
+    ],
+    "completed": false,
+    "rating": null,
+    "completed_date": null,
+    "notes": null
+  },
+  {
+    "title": "IFS Cloud Royal Docks",
+    "description": "Cable Car view, good at night time",
+    "location": "E16 1FA",
+    "coords": {
+      "lat": 51.5075842,
+      "lng": 0.0199016
+    },
+    "cost": "7",
+    "tags": [
+      "Date",
+      "Quick",
+      "East"
+    ],
+    "completed": false,
+    "completed_date": null,
+    "rating": null,
+    "notes": null
+  },
+  {
+    "title": "Richmond Park",
+    "description": "Day trip type thing, far away",
+    "location": "TW10 5HS",
+    "coords": {
+      "lat": 51.451845,
+      "lng": -0.2824066
+    },
+    "cost": "0",
+    "tags": [
+      "Park",
+      "Outdoors",
+      "Free",
+      "Far"
+    ],
+    "completed": false,
+    "completed_date": null,
+    "rating": null,
+    "notes": null
+  },
+  {
+    "title": "Paradox Museum London",
+    "description": "Zero gravity room",
+    "location": "SW3 1JJ",
+    "coords": {
+      "lat": 51.4993097,
+      "lng": -0.1649294
+    },
+    "cost": 0,
+    "tags": [
+      ""
+    ],
+    "completed": false,
+    "completed_date": null,
+    "rating": null,
+    "notes": null
+  }
+]
