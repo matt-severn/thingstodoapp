@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Petit+Formal+Script&family=Great+Vibes&display=swap');
+
+
 body, html { 
   margin: 0; 
   padding: 0; 
@@ -174,16 +177,16 @@ body, html {
 
 :root {
   --bg-light: #f5f5f5;
-  --bg-romance: #1a1423;               /* deep purple - keep existing */
+  --bg-romance: #1a1423;               
   --text-light: #000;
-  --text-romance: #fceff9;             /* soft blush white - keep existing */
+  --text-romance: #fceff9;            
   --card-bg-light: #fff;
-  --card-bg-romance: #2a213b;          /* dusky plum - keep existing */
-  --accent-color: #ff6fa0;             /* warm pink - keep existing */
-  --highlight-color: #ffc2d1;          /* peachy highlight - keep existing */
-  --romance-rose: #d63384;             /* deep rose for romantic accents */
-  --romance-gold: #ffd700;             /* gold for special elements */
-  --romance-blush: #ffb3d9;            /* soft blush pink */
+  --card-bg-romance: #2a213b;
+  --accent-color: #ff6fa0;
+  --highlight-color: #ffc2d1;
+  --romance-rose: #d63384;            
+  --romance-gold: #ffd700;
+  --romance-blush: #ffb3d9;            
   --transition-duration: 0.5s;
 }
 
@@ -202,6 +205,44 @@ body {
 .item {
   background: var(--card-bg-light);
   transition: background-color var(--transition-duration), color var(--transition-duration);
+}
+
+#page-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3em;
+  font-size: 2.5em;
+  margin-bottom: 0.7em;
+}
+
+#page-title .heart {
+  font-size: 1.1em;
+  animation: pulse-heart 2s ease-in-out infinite;
+  color: #ff6fa0; /* Explicit color to override transparency */
+  -webkit-text-fill-color: initial !important;
+  background: none !important;
+}
+
+@keyframes pulse-heart {
+  0%, 100% { transform: scale(1); opacity: 0.85; }
+  50% { transform: scale(1.3); opacity: 1; }
+}
+
+#page-title .title-text {
+  font-family: 'Petit Formal Script', cursive; /* Or try 'Great Vibes' */
+  font-weight: normal;
+  color: var(--text-light);
+  transition: all 0.4s ease;
+}
+
+/* Romance Mode gradient text only for the actual words */
+body.romance-mode #page-title .title-text {
+  background: linear-gradient(45deg, #ff6fa0, #ffc2d1, #ffb3d9);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: none;
 }
 
 /* Updated existing dark-mode classes to romance-mode */
@@ -353,7 +394,7 @@ body.romance-mode button:active {
 }
 
 /* Cute toggle button styling */
-body.romance-mode #romance-mode-toggle {
+#romance-mode-toggle {
   background: linear-gradient(45deg, #ff6fa0, #d63384);
   border: none;
   color: white;
@@ -362,9 +403,10 @@ body.romance-mode #romance-mode-toggle {
   font-weight: bold;
   text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
   box-shadow: 0 4px 10px rgba(255, 107, 160, 0.3);
+  transition: all 0.3s ease;
 }
 
-body.romance-mode #romance-mode-toggle:hover {
+#romance-mode-toggle:hover {
   background: linear-gradient(45deg, #d63384, #ff6fa0);
   transform: scale(1.05) rotate(2deg);
 }
@@ -442,4 +484,57 @@ body.romance-mode #sidebar {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+body.romance-mode .item.completed button {
+  background-color: var(--accent-color) !important; /* #ff6fa0 */
+  color: white !important;
+}
+
+/* Keep delete buttons red in both completed and non-completed items */
+body.romance-mode .item.completed button:last-child {
+  background-color: #f44336 !important; /* Match non-completed delete button */
+}
+
+.map-popup p {
+  margin: 0.4em 0;
+}
+
+.map-popup {
+  font-family: inherit;
+  font-size: 0.95em;
+  background: white;
+  padding: 10px;
+  border-radius: 10px;
+  color: black;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  max-width: 250px;
+}
+
+/* Romance Mode popups */
+.romance-popup {
+  background: linear-gradient(135deg, #2a213b, #3c2a4d);
+  color: var(--text-romance);
+  border: 2px solid var(--accent-color);
+  box-shadow: 0 0 15px rgba(255, 107, 160, 0.3);
+}
+
+.romance-popup button {
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 5px 10px;
+  margin-top: 5px;
+  margin-right: 4px;
+  font-size: 0.85em;
+  cursor: pointer;
+}
+
+.romance-popup button:nth-child(2) {
+  background-color: var(--romance-rose);
+}
+
+.romance-popup button:last-child {
+  background-color: #f44336;
 }

@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <link href="https://fonts.googleapis.com/css2?family=Petit+Formal+Script&family=Great+Vibes&display=swap" rel="stylesheet">
   <title>Date Map</title>
   <script src="https://maps.googleapis.com/maps/api/js?key={{ google_api_key }}"></script>
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
   <div id="sidebar">
-<h1 style="font-family: Dancing Script, Papyrus, fantasy; font-weight: 100; font-size: 30px; color: darkred;">💖 Date Ideas 💖</h1>
+<h1 id="page-title">
+  <span class="heart">💖</span>
+  <span class="title-text">Date Ideas</span>
+  <span class="heart">💖</span>
+</h1>
     <form id="add-item-form">
       <input type="text" name="title" placeholder="Title" required>
       <input type="text" name="description" placeholder="Description"></input>
@@ -351,18 +356,23 @@ function updateFilters() {
     }
 
     const infowindow = new google.maps.InfoWindow({
-      content: `
-        <div style="${isRomanceMode ? 'background: linear-gradient(135deg, #ffc2d1, #ffb3d9); border-radius: 10px; padding: 10px;' : ''}">
-          <strong>${item.title}</strong><br/>
-          ${item.description}<br/>
-          Cost: £${item.cost}<br/>
-          Tags: ${item.tags.join(', ')}<br/>
-          Completed: ${item.completed ? '✅' : '❌'}<br/>
-          <button onclick="toggleCompleted(${index})" style="${isRomanceMode ? 'background: #ff6fa0; border: none; border-radius: 15px; padding: 5px 10px; color: white; margin: 2px;' : ''}">Toggle Completed</button>
-          <button onclick="editItem(${index})" style="${isRomanceMode ? 'background: #d63384; border: none; border-radius: 15px; padding: 5px 10px; color: white; margin: 2px;' : ''}">Edit</button>
-          <button onclick="deleteItem(${index})" style="${isRomanceMode ? 'background: #ff6fa0; border: none; border-radius: 15px; padding: 5px 10px; color: white; margin: 2px;' : ''}">Delete</button>
-        </div>`
-    });
+  content: `
+  <div class="map-popup ${isRomanceMode ? 'romance-popup' : ''}">
+    <p><strong>${item.title}</strong></p>
+    <p>${item.description}</p>
+    <p><strong>Cost:</strong> £${item.cost}</p>
+    <p><strong>Tags:</strong> ${item.tags.join(', ')}</p>
+    <p><strong>Completed:</strong> ${item.completed ? '✅' : '❌'}</p>
+    <div class="popup-buttons">
+      <button onclick="toggleCompleted(${index})">Toggle Completed</button>
+      <button onclick="editItem(${index})">Edit</button>
+      <button onclick="deleteItem(${index})">Delete</button>
+    </div>
+  </div>
+`
+
+});
+
 
     marker.addListener('click', () => {
       infowindow.open(map, marker);
