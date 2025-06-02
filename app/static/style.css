@@ -274,3 +274,172 @@ body.romance-mode .notes {
 }
 
 
+body.romance-mode {
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Floating hearts background */
+body.romance-mode::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+  background-image: 
+    radial-gradient(circle at 20% 30%, rgba(255, 107, 160, 0.1) 2px, transparent 2px),
+    radial-gradient(circle at 70% 70%, rgba(255, 194, 209, 0.1) 1px, transparent 1px),
+    radial-gradient(circle at 90% 20%, rgba(255, 179, 217, 0.1) 1.5px, transparent 1.5px);
+  background-size: 100px 100px, 150px 150px, 200px 200px;
+  animation: float-hearts 8s ease-in-out infinite;
+}
+
+/* Enhanced card styling for romance mode */
+body.romance-mode .item {
+  background: linear-gradient(135deg, var(--card-bg-romance) 0%, #3c2a4d 100%);
+  border-radius: 15px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  box-shadow: 0 8px 25px rgba(255, 107, 160, 0.15);
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+body.romance-mode .item:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 15px 40px rgba(255, 107, 160, 0.25);
+}
+
+/* Sparkle effect on hover */
+body.romance-mode .item:hover::after {
+  content: '✨';
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 1.2em;
+  animation: sparkle 1.5s ease-in-out infinite;
+}
+
+/* Completed items gentle pulse */
+body.romance-mode .item.completed {
+  animation: gentle-pulse 3s ease-in-out infinite;
+}
+
+/* Heart-shaped progress indicator */
+body.romance-mode #progress-counter::before {
+  content: '💖 ';
+  font-size: 1.2em;
+  animation: gentle-pulse 2s ease-in-out infinite;
+}
+
+/* Bouncy button animations */
+body.romance-mode button {
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+body.romance-mode button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(255, 107, 160, 0.3);
+}
+
+body.romance-mode button:active {
+  animation: bounce-in 0.3s ease;
+}
+
+/* Cute toggle button styling */
+body.romance-mode #romance-mode-toggle {
+  background: linear-gradient(45deg, #ff6fa0, #d63384);
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+  box-shadow: 0 4px 10px rgba(255, 107, 160, 0.3);
+}
+
+body.romance-mode #romance-mode-toggle:hover {
+  background: linear-gradient(45deg, #d63384, #ff6fa0);
+  transform: scale(1.05) rotate(2deg);
+}
+
+/* Animated form inputs */
+body.romance-mode input:focus,
+body.romance-mode textarea:focus {
+  border-color: #ff6fa0;
+  box-shadow: 0 0 10px rgba(255, 107, 160, 0.3);
+  transform: scale(1.02);
+}
+
+/* Custom heart checkbox */
+body.romance-mode input[type="checkbox"] {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #ff6fa0;
+  border-radius: 50%;
+  position: relative;
+  cursor: pointer;
+}
+
+body.romance-mode input[type="checkbox"]:checked::after {
+  content: '💖';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 12px;
+}
+
+/* Sliding animation for item list */
+body.romance-mode .item {
+  animation: slide-in-cute 0.5s ease-out;
+}
+
+@keyframes slide-in-cute {
+  0% {
+    opacity: 0;
+    transform: translateX(-30px) scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+/* Gradient text for headers */
+body.romance-mode h1,
+body.romance-mode h2,
+body.romance-mode h3 {
+  background: linear-gradient(45deg, #ff6fa0, #ffc2d1, #ffb3d9);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: none;
+}
+
+/* Cute loading animation for the whole sidebar */
+body.romance-mode #sidebar {
+  animation: fade-in-bounce 0.8s ease-out;
+}
+
+@keyframes fade-in-bounce {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  60% {
+    opacity: 0.8;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

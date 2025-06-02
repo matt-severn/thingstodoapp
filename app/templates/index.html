@@ -152,18 +152,60 @@
   map = new google.maps.Map(document.getElementById("map"), {
     zoom: 12,
     center: center,
+    // Disable default UI to customize it
+    disableDefaultUI: true,
+    zoomControl: true,
+    mapTypeControl: false,
+    scaleControl: true,
+    streetViewControl: false,
+    rotateControl: false,
+    fullscreenControl: true
   });
 
-  applyMapStyleForTheme(); // ← add this line
+  applyMapStyleForTheme();
+  
   fetchItemsAndRender();
 }
 
-
-    function applyMapStyleForTheme() {
+function applyMapStyleForTheme() {
   if (!map) return;
   const isRomanceMode = document.body.classList.contains('romance-mode');
+  
   map.setOptions({
     styles: isRomanceMode ? romanceMapStyle : null
+  });
+  
+  // Update custom controls
+  
+  
+  // Update existing markers
+  if (markers.length > 0) {
+    createMarkers(currentItems);
+  }
+}
+
+
+   function applyMapStyleForTheme() {
+  if (!map) return;
+  const isRomanceMode = document.body.classList.contains('romance-mode');
+  
+  map.setOptions({
+    styles: isRomanceMode ? romanceMapStyle : null
+  });
+  
+  
+  // Update existing markers
+  if (markers.length > 0) {
+    createMarkers(currentItems);
+  }
+}
+
+function addRomanceMapInteractions() {
+  if (!document.body.classList.contains('romance-mode')) return;
+  
+  // Add heart animation when clicking on the map
+  map.addListener('click', (event) => {
+    createFloatingHeart(event.latLng);
   });
 }
 
@@ -180,6 +222,27 @@
     }
   });
   return Array.from(tags).sort();
+}
+
+function createFloatingHeart(latLng) {
+  const heart = new google.maps.Marker({
+    position: latLng,
+    map: map,
+    icon: {
+      path: 'M12,21.35l-1.45-1.32C5.4,15.36,2,12.28,2,8.5 C2,5.42,4.42,3,7.5,3c1.74,0,3.41,0.81,4.5,2.09C13.09,3.81,14.76,3,16.5,3 C19.58,3,22,5.42,22,8.5c0,3.78-3.4,6.86-8.55,11.54L12,21.35z',
+      fillColor: '#ff6fa0',
+      fillOpacity: 0.7,
+      strokeWeight: 1,
+      strokeColor: '#fff',
+      scale: 0.8
+    },
+    animation: google.maps.Animation.DROP
+  });
+  
+  // Remove the heart after 2 seconds
+  setTimeout(() => {
+    heart.setMap(null);
+  }, 2000);
 }
 
 function populateTagFilter(tags) {
@@ -244,42 +307,70 @@ function updateFilters() {
     filteredItems = filteredItems.filter(item => !item.completed);
   }
 
+  const isRomanceMode = document.body.classList.contains('romance-mode');
+
   filteredItems.forEach((item, index) => {
+    let markerIcon;
+    
+    if (isRomanceMode) {
+      // Custom heart shape for romance mode
+      markerIcon = {
+        path: 'M12,21.35l-1.45-1.32C5.4,15.36,2,12.28,2,8.5 C2,5.42,4.42,3,7.5,3c1.74,0,3.41,0.81,4.5,2.09C13.09,3.81,14.76,3,16.5,3 C19.58,3,22,5.42,22,8.5c0,3.78-3.4,6.86-8.55,11.54L12,21.35z',
+        fillColor: item.completed ? '#FF0000' : '#d63384', // Warm pink / Deep rose
+        fillOpacity: item.completed ? 0.99 : 0.7,
+        strokeWeight: 1.5,
+        strokeColor: '#fff',
+        scale: item.completed ? 0.8 : 1.2,
+        anchor: new google.maps.Point(12, 21)
+      };
+    } else {
+      // Original arrow for normal mode
+      markerIcon = {
+        path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
+        fillColor: item.completed ? '#0F0' : '#F00', // Green / Red
+        fillOpacity: item.completed ? 0.99 : 0.7,
+        strokeWeight: 1,
+        strokeColor: '#FFF',
+        scale: item.completed ? 5 : 6,
+      };
+    }
+
     const marker = new google.maps.Marker({
       position: item.coords,
       map: map,
       title: item.title,
-      icon: {
-        path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
-        fillColor: item.completed ? '#0F0' : '#F00',
-        fillOpacity: 0.99,
-        strokeWeight: 1,
-        strokeColor: '#FFF',
-        scale: 7
-      }
+      icon: markerIcon,
+      animation: isRomanceMode ? google.maps.Animation.BOUNCE : null // Cute bounce animation
     });
 
-        const infowindow = new google.maps.InfoWindow({
-          content: `
-            <div>
-              <strong>${item.title}</strong><br/>
-              ${item.description}<br/>
-              Cost: £${item.cost}<br/>
-              Tags: ${item.tags.join(', ')}<br/>
-              Completed: ${item.completed ? '✅' : '❌'}<br/>
-              <button onclick="toggleCompleted(${index})">Toggle Completed</button>
-              <button onclick="editItem(${index})">Edit</button>
-              <button onclick="deleteItem(${index})">Delete</button>
-            </div>`
-        });
-
-        marker.addListener('click', () => {
-          infowindow.open(map, marker);
-        });
-
-        markers.push(marker);
-      });
+    // Stop bouncing after 2 seconds for romance mode
+    if (isRomanceMode) {
+      setTimeout(() => {
+        marker.setAnimation(null);
+      }, 2000);
     }
+
+    const infowindow = new google.maps.InfoWindow({
+      content: `
+        <div style="${isRomanceMode ? 'background: linear-gradient(135deg, #ffc2d1, #ffb3d9); border-radius: 10px; padding: 10px;' : ''}">
+          <strong>${item.title}</strong><br/>
+          ${item.description}<br/>
+          Cost: £${item.cost}<br/>
+          Tags: ${item.tags.join(', ')}<br/>
+          Completed: ${item.completed ? '✅' : '❌'}<br/>
+          <button onclick="toggleCompleted(${index})" style="${isRomanceMode ? 'background: #ff6fa0; border: none; border-radius: 15px; padding: 5px 10px; color: white; margin: 2px;' : ''}">Toggle Completed</button>
+          <button onclick="editItem(${index})" style="${isRomanceMode ? 'background: #d63384; border: none; border-radius: 15px; padding: 5px 10px; color: white; margin: 2px;' : ''}">Edit</button>
+          <button onclick="deleteItem(${index})" style="${isRomanceMode ? 'background: #ff6fa0; border: none; border-radius: 15px; padding: 5px 10px; color: white; margin: 2px;' : ''}">Delete</button>
+        </div>`
+    });
+
+    marker.addListener('click', () => {
+      infowindow.open(map, marker);
+    });
+
+    markers.push(marker);
+  });
+}
 
     function renderItemsList() {
   // Apply filters to current items
@@ -508,12 +599,15 @@ document.getElementById('tag-filter').addEventListener('change', (e) => {
     document.getElementById('romance-mode-toggle').addEventListener('click', () => {
   document.body.classList.toggle('romance-mode');
 
-  // Persist preference
   const isRomance = document.body.classList.contains('romance-mode');
   localStorage.setItem('romance-mode', isRomance ? 'enabled' : 'disabled');
 
-  // Apply matching map style
   applyMapStyleForTheme();
+  
+  // Add or remove romance interactions
+  if (isRomance) {
+    addRomanceMapInteractions();
+  }
 });
 
 
