@@ -171,3 +171,103 @@ body, html {
   font-size: 1em;
   box-sizing: border-box;
 }
+
+:root {
+  --bg-light: #f5f5f5;
+  --bg-dark: #1a1423;               /* deep purple */
+  --text-light: #000;
+  --text-dark: #fceff9;             /* soft blush white */
+  --card-bg-light: #fff;
+  --card-bg-dark: #2a213b;          /* dusky plum */
+  --accent-color: #ff6fa0;          /* warm pink */
+  --highlight-color: #ffc2d1;       /* peachy highlight */
+  --transition-duration: 0.5s;
+}
+
+
+body {
+  background-color: var(--bg-light);
+  color: var(--text-light);
+  transition: background-color var(--transition-duration), color var(--transition-duration);
+}
+
+#sidebar {
+  background: var(--bg-light);
+  transition: background-color var(--transition-duration), color var(--transition-duration);
+}
+
+.item {
+  background: var(--card-bg-light);
+  transition: background-color var(--transition-duration), color var(--transition-duration);
+}
+
+/* DARK MODE STYLES */
+body.dark-mode {
+  background-color: var(--bg-dark);
+  color: var(--text-dark);
+}
+
+body.dark-mode #sidebar {
+  background: var(--bg-dark);
+}
+
+
+body.dark-mode .item {
+  background: var(--card-bg-dark);
+  color: var(--text-dark);
+  border-left: 4px solid var(--accent-color);
+}
+
+body.dark-mode input,
+body.dark-mode textarea,
+body.dark-mode select {
+  background-color: #333;
+  color: #fff;
+  border: 1px solid #666;
+}
+
+body.dark-mode button {
+  background-color: var(--accent-color);
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+body.dark-mode .item.completed button {
+  background-color: var(--highlight-color);
+  color: #1a1423;
+}
+
+body.dark-mode #add-item-form {
+  background: #444;
+  border: 1px solid #666;
+}
+
+body.dark-mode #filters {
+  background: #2a213b;
+  color: var(--text-dark);
+  box-shadow: 0 1px 3px rgba(255, 200, 230, 0.1);
+}
+
+
+body.dark-mode .item.completed {
+  background-color: #322646;
+  border-left: 4px solid var(--highlight-color);
+  color: var(--highlight-color);
+}
+
+body.dark-mode .item.completed h3 {
+  color: #81c784; /* slightly brighter green for headings */
+}
+
+body.dark-mode .completion-details {
+  color: var(--highlight-color);
+  border-top: 1px dashed #444;
+}
+
+body.dark-mode .notes {
+  background-color: #3c2a4d;
+  border-left: 3px solid var(--accent-color);
+  color: var(--highlight-color);
+}
+
+

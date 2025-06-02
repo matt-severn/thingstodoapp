@@ -26,6 +26,7 @@
       <button type="submit">Save Changes</button>
       <button type="button" onclick="cancelEdit()">Cancel</button>
     </form>
+    <button id="dark-mode-toggle">🌙 Toggle Dark Mode</button>
     <h2>Filters</h2>
     <div id="progress-counter">0/0 completed</div>
     <div id="filters">
@@ -45,6 +46,85 @@
   <div id="map"></div>
   
   <script>
+
+    const darkMapStyle = [
+  { elementType: "geometry", stylers: [{ color: "#212121" }] },
+  { elementType: "labels.icon", stylers: [{ visibility: "off" }] },
+  { elementType: "labels.text.fill", stylers: [{ color: "#757575" }] },
+  { elementType: "labels.text.stroke", stylers: [{ color: "#212121" }] },
+  {
+    featureType: "administrative",
+    elementType: "geometry",
+    stylers: [{ color: "#757575" }]
+  },
+  {
+    featureType: "poi",
+    elementType: "labels.text.fill",
+    stylers: [{ color: "#757575" }]
+  },
+  {
+    featureType: "poi.park",
+    elementType: "geometry",
+    stylers: [{ color: "#181818" }]
+  },
+  {
+    featureType: "poi.park",
+    elementType: "labels.text.fill",
+    stylers: [{ color: "#616161" }]
+  },
+  {
+    featureType: "poi.park",
+    elementType: "labels.text.stroke",
+    stylers: [{ color: "#1b1b1b" }]
+  },
+  {
+    featureType: "road",
+    elementType: "geometry.fill",
+    stylers: [{ color: "#2c2c2c" }]
+  },
+  {
+    featureType: "road",
+    elementType: "labels.text.fill",
+    stylers: [{ color: "#8a8a8a" }]
+  },
+  {
+    featureType: "road.arterial",
+    elementType: "geometry",
+    stylers: [{ color: "#373737" }]
+  },
+  {
+    featureType: "road.highway",
+    elementType: "geometry",
+    stylers: [{ color: "#3c3c3c" }]
+  },
+  {
+    featureType: "road.highway.controlled_access",
+    elementType: "geometry",
+    stylers: [{ color: "#4e4e4e" }]
+  },
+  {
+    featureType: "road.local",
+    elementType: "labels.text.fill",
+    stylers: [{ color: "#616161" }]
+  },
+  {
+    featureType: "transit",
+    elementType: "labels.text.fill",
+    stylers: [{ color: "#757575" }]
+  },
+  {
+    featureType: "water",
+    elementType: "geometry",
+    stylers: [{ color: "#000000" }]
+  },
+  {
+    featureType: "water",
+    elementType: "labels.text.fill",
+    stylers: [{ color: "#3d3d3d" }]
+  }
+];
+
+
     let allTags = new Set();
     let currentSearchTerm = "";
     let currentTagFilter = "";
@@ -55,14 +135,25 @@
     let currentItems = [];
 
     async function initMap() {
-      const center = { lat: 51.5074, lng: -0.1278 }; // London
-      map = new google.maps.Map(document.getElementById("map"), {
-        zoom: 12,
-        center: center,
-      });
+  const center = { lat: 51.5074, lng: -0.1278 };
+  map = new google.maps.Map(document.getElementById("map"), {
+    zoom: 12,
+    center: center,
+  });
 
-      await fetchItemsAndRender();
-    }
+  applyMapStyleForTheme(); // ← add this line
+  fetchItemsAndRender();
+}
+
+
+    function applyMapStyleForTheme() {
+  if (!map) return;
+  const isDarkMode = document.body.classList.contains('dark-mode');
+  map.setOptions({
+    styles: isDarkMode ? darkMapStyle : null
+  });
+}
+
 
     function extractAllTags(items) {
   const tags = new Set();
@@ -240,11 +331,7 @@ async function fetchItemsAndRender() {
     populateTagFilter(allTags);
   }
   
-  // Create markers for all items
-  createMarkers(items);
-  
-  // Render the filtered list
-  renderItemsList();
+  updateFilters();
 }
 
 async function toggleCompleted(index) {
@@ -286,6 +373,9 @@ async function toggleCompleted(index) {
         });
     }
     await fetchItemsAndRender();
+    
+
+  
 }
 
     async function deleteItem(index) {
@@ -338,9 +428,8 @@ async function toggleCompleted(index) {
     }
 
     function toggleCompletedFilter() {
-  showCompleted = !showCompleted;
-  document.getElementById('show-completed').checked = showCompleted;
-  renderItemsList();
+  showCompleted = document.getElementById('show-completed').checked;
+  updateFilters();
 }
 
 function updateProgressCounter(items) {
@@ -395,6 +484,26 @@ document.getElementById('tag-filter').addEventListener('change', (e) => {
     window.editItem = editItem;
     window.cancelEdit = cancelEdit;
     window.onload = initMap;
+    window.onload = () => {
+  if (localStorage.getItem('dark-mode') === 'enabled') {
+    document.body.classList.add('dark-mode');
+  }
+  initMap();
+};
+
+  
+    document.getElementById('dark-mode-toggle').addEventListener('click', () => {
+  document.body.classList.toggle('dark-mode');
+
+  // Persist preference
+  const isDark = document.body.classList.contains('dark-mode');
+  localStorage.setItem('dark-mode', isDark ? 'enabled' : 'disabled');
+
+  // Apply matching map style
+  applyMapStyleForTheme();
+});
+
+
   </script>
 </body>
 </html>
