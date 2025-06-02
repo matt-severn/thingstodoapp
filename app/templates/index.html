@@ -26,7 +26,7 @@
       <button type="submit">Save Changes</button>
       <button type="button" onclick="cancelEdit()">Cancel</button>
     </form>
-    <button id="dark-mode-toggle">🌙 Toggle Dark Mode</button>
+    <button id="romance-mode-toggle">💕 Toggle Romance Mode</button>
     <h2>Filters</h2>
     <div id="progress-counter">0/0 completed</div>
     <div id="filters">
@@ -47,93 +47,93 @@
   
   <script>
 
-    const darkMapStyle = [
+    const romanceMapStyle = [
   {
     elementType: "geometry",
-    stylers: [{ color: "#242f3e" }]
+    stylers: [{ color: "#2a213b" }] // dusky plum matching sidebar cards
   },
   {
     elementType: "labels.text.stroke",
-    stylers: [{ color: "#242f3e" }]
+    stylers: [{ color: "#1a1423" }] // deep purple matching background
   },
   {
     elementType: "labels.text.fill",
-    stylers: [{ color: "#746855" }]
+    stylers: [{ color: "#fceff9" }] // soft blush white matching text
   },
   {
     featureType: "administrative.locality",
     elementType: "labels.text.fill",
-    stylers: [{ color: "#d59563" }]
+    stylers: [{ color: "#ffc2d1" }] // peachy highlight for city names
   },
   {
     featureType: "poi",
     elementType: "labels.text.fill",
-    stylers: [{ color: "#d59563" }]
+    stylers: [{ color: "#ff6fa0" }] // warm pink accent for POIs
   },
   {
     featureType: "poi.park",
     elementType: "geometry",
-    stylers: [{ color: "#263c3f" }]
+    stylers: [{ color: "#322646" }] // darker purple for parks
   },
   {
     featureType: "poi.park",
     elementType: "labels.text.fill",
-    stylers: [{ color: "#6b9a76" }]
+    stylers: [{ color: "#ffb3d9" }] // soft blush pink for park labels
   },
   {
     featureType: "road",
     elementType: "geometry",
-    stylers: [{ color: "#38414e" }]
+    stylers: [{ color: "#3c2a4d" }] // slightly lighter purple for roads
   },
   {
     featureType: "road",
     elementType: "geometry.stroke",
-    stylers: [{ color: "#212a37" }]
+    stylers: [{ color: "#1a1423" }] // deep purple for road outlines
   },
   {
     featureType: "road",
     elementType: "labels.text.fill",
-    stylers: [{ color: "#9ca5b3" }]
+    stylers: [{ color: "#fceff9" }] // soft white for road labels
   },
   {
     featureType: "road.highway",
     elementType: "geometry",
-    stylers: [{ color: "#746855" }]
+    stylers: [{ color: "#ff6fa0" }] // warm pink for highways
   },
   {
     featureType: "road.highway",
     elementType: "geometry.stroke",
-    stylers: [{ color: "#1f2835" }]
+    stylers: [{ color: "#d63384" }] // deep rose for highway outlines
   },
   {
     featureType: "road.highway",
     elementType: "labels.text.fill",
-    stylers: [{ color: "#f3d19c" }]
+    stylers: [{ color: "#ffd700" }] // gold for highway labels
   },
   {
     featureType: "transit",
     elementType: "geometry",
-    stylers: [{ color: "#2f3948" }]
+    stylers: [{ color: "#2a213b" }] // dusky plum for transit
   },
   {
     featureType: "transit.station",
     elementType: "labels.text.fill",
-    stylers: [{ color: "#d59563" }]
+    stylers: [{ color: "#ffc2d1" }] // peachy highlight for stations
   },
   {
     featureType: "water",
     elementType: "geometry",
-    stylers: [{ color: "#17263c" }]
+    stylers: [{ color: "#1a1423" }] // deep purple for water
   },
   {
     featureType: "water",
     elementType: "labels.text.fill",
-    stylers: [{ color: "#515c6d" }]
+    stylers: [{ color: "#ff6fa0" }] // warm pink for water labels
   },
   {
     featureType: "water",
     elementType: "labels.text.stroke",
-    stylers: [{ color: "#17263c" }]
+    stylers: [{ color: "#1a1423" }] // deep purple stroke
   }
 ];
 
@@ -161,9 +161,9 @@
 
     function applyMapStyleForTheme() {
   if (!map) return;
-  const isDarkMode = document.body.classList.contains('dark-mode');
+  const isRomanceMode = document.body.classList.contains('romance-mode');
   map.setOptions({
-    styles: isDarkMode ? darkMapStyle : null
+    styles: isRomanceMode ? romanceMapStyle : null
   });
 }
 
@@ -498,19 +498,19 @@ document.getElementById('tag-filter').addEventListener('change', (e) => {
     window.cancelEdit = cancelEdit;
     window.onload = initMap;
     window.onload = () => {
-  if (localStorage.getItem('dark-mode') === 'enabled') {
-    document.body.classList.add('dark-mode');
+  if (localStorage.getItem('romance-mode') === 'enabled') {
+    document.body.classList.add('romance-mode');
   }
   initMap();
 };
 
   
-    document.getElementById('dark-mode-toggle').addEventListener('click', () => {
-  document.body.classList.toggle('dark-mode');
+    document.getElementById('romance-mode-toggle').addEventListener('click', () => {
+  document.body.classList.toggle('romance-mode');
 
   // Persist preference
-  const isDark = document.body.classList.contains('dark-mode');
-  localStorage.setItem('dark-mode', isDark ? 'enabled' : 'disabled');
+  const isRomance = document.body.classList.contains('romance-mode');
+  localStorage.setItem('romance-mode', isRomance ? 'enabled' : 'disabled');
 
   // Apply matching map style
   applyMapStyleForTheme();
