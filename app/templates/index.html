@@ -116,28 +116,44 @@ function filterItems(items, searchTerm, tagFilter) {
 }
 
 function updateFilters() {
-  renderItemsList();
+  // Apply filters to current items
+  let filteredItems = filterItems(currentItems, currentSearchTerm, currentTagFilter);
+  
+  if (!showCompleted) {
+    filteredItems = filteredItems.filter(item => !item.completed);
+  }
+  
+  // Update both list and map
+  renderItemsList(filteredItems);
+  createMarkers(currentItems); // Will apply the same filters
 }
 
     function createMarkers(items) {
-      // Clear existing markers
-      markers.forEach(marker => marker.setMap(null));
-      markers = [];
+  // Clear existing markers
+  markers.forEach(marker => marker.setMap(null));
+  markers = [];
 
-      items.forEach((item, index) => {
-        const marker = new google.maps.Marker({
-          position: item.coords,
-          map: map,
-          title: item.title,
-          icon: {
-            path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
-            fillColor: item.completed ? '#0F0' : '#F00',
-            fillOpacity: 0.99,
-            strokeWeight: 1,
-            strokeColor: '#FFF',
-            scale: 7
-          }
-        });
+  // Apply the same filtering to map markers as we do to the list
+  let filteredItems = filterItems(items, currentSearchTerm, currentTagFilter);
+  
+  if (!showCompleted) {
+    filteredItems = filteredItems.filter(item => !item.completed);
+  }
+
+  filteredItems.forEach((item, index) => {
+    const marker = new google.maps.Marker({
+      position: item.coords,
+      map: map,
+      title: item.title,
+      icon: {
+        path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
+        fillColor: item.completed ? '#0F0' : '#F00',
+        fillOpacity: 0.99,
+        strokeWeight: 1,
+        strokeColor: '#FFF',
+        scale: 7
+      }
+    });
 
         const infowindow = new google.maps.InfoWindow({
           content: `
