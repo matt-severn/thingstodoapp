@@ -136,7 +136,10 @@
       "View",
       "Quick"
     ],
-    "completed": false
+    "completed": false,
+    "rating": null,
+    "completed_date": null,
+    "notes": null
   },
   {
     "title": "Barbican Conservatory",
@@ -150,7 +153,10 @@
     "tags": [
       "Free"
     ],
-    "completed": false
+    "completed": true,
+    "rating": 7,
+    "completed_date": "2025-06-07",
+    "notes": "Unique, cool hang out spot potenially, didn't like layout, good photo opps"
   },
   {
     "title": "Crossrail Place Roof Garden",
@@ -276,7 +282,10 @@
     "tags": [
       "Cafe"
     ],
-    "completed": false
+    "completed": true,
+    "rating": 8,
+    "completed_date": "2025-06-07",
+    "notes": "Coffee was nice, cake was nice, will go back"
   },
   {
     "title": "Icco Pizza",
@@ -318,7 +327,10 @@
     "tags": [
       ""
     ],
-    "completed": false
+    "completed": true,
+    "rating": 6,
+    "completed_date": "2025-06-13",
+    "notes": "Nice view but very expensive drinks, cool interior and there is a cafe on the lower floor which could be worth a revisit"
   },
   {
     "title": "Outernet",
@@ -332,7 +344,10 @@
     "tags": [
       "Free"
     ],
-    "completed": false
+    "completed": true,
+    "rating": 5,
+    "completed_date": "2025-06-07",
+    "notes": "Repetitive, already seen both displays, crowded"
   },
   {
     "title": "Fostok Halab",
@@ -418,9 +433,10 @@
     "tags": [
       "Bakery"
     ],
-    "completed": false,
-    "rating": 3,
-    "completed_date": "2025-05-28"
+    "completed": true,
+    "rating": 10,
+    "completed_date": "2025-06-07",
+    "notes": "Nice bakery goods, cheap, coconut, pistachio, and curry chicken one were all winners"
   },
   {
     "title": "The Green Park",
@@ -517,13 +533,13 @@
   },
   {
     "title": "Japanese Market",
-    "description": "Food market",
+    "description": "Food market, only occurs once a month. Google 'kings cross shotengai market' to see dates",
     "location": "N1C 4AG",
     "coords": {
       "lat": 51.5334784,
       "lng": -0.1250453
     },
-    "cost": 0,
+    "cost": "0",
     "tags": [
       "Food",
       "Central",

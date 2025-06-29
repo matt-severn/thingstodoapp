@@ -282,7 +282,7 @@ body.romance-mode .item.completed button {
 }
 
 body.romance-mode #add-item-form {
-  background: #444;
+  background: #2a213b;
   border: 1px solid #666;
 }
 
@@ -537,4 +537,58 @@ body.romance-mode .item.completed button:last-child {
 
 .romance-popup button:last-child {
   background-color: #f44336;
+}
+
+/* Add welcome section styling */
+#welcome-section {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  padding: 30px;
+  margin-top: 20px;
+}
+
+body.romance-mode #welcome-section {
+  background: rgba(42, 33, 59, 0.9);
+  color: #fceff9;
+}
+
+#welcome-section h2 {
+  font-family: 'Petit Formal Script', cursive;
+  font-size: 2em;
+  margin-bottom: 15px;
+}
+
+#welcome-section p {
+  font-size: 1.1em;
+  margin: 10px 0;
+}
+
+#user-info {
+  background: rgba(255, 255, 255, 0.8);
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+#user-info h2 {
+  margin: 0 0 10px 0;
+  font-size: 1.2em;
+}
+
+#user-info button {
+  background: #f44336;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+body.romance-mode #user-info {
+  background: rgba(42, 33, 59, 0.8);
+}
+
+body.romance-mode #user-info button {
+  background: #d63384;
 }

@@ -7,12 +7,50 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-  <div id="sidebar">
-<h1 id="page-title">
-  <span class="heart">💖</span>
-  <span class="title-text">Date Ideas</span>
-  <span class="heart">💖</span>
-</h1>
+<div id="sidebar">
+  <!-- Authentication Section -->
+  <div id="auth-section" style="margin-bottom: 20px;">
+    <div id="login-form" style="display: none;">
+      <h2>Login</h2>
+      <input type="email" id="login-email" placeholder="Email" required>
+      <input type="password" id="login-password" placeholder="Password" required>
+      <button onclick="login()">Login</button>
+      <button onclick="showRegister()">Register</button>
+    </div>
+    
+    <div id="register-form" style="display: none;">
+      <h2>Register</h2>
+      <input type="email" id="register-email" placeholder="Email" required>
+      <input type="password" id="register-password" placeholder="Password" required>
+      <button onclick="register()">Register</button>
+      <button onclick="showLogin()">Login</button>
+    </div>
+  </div>
+  
+  <!-- User Info Section -->
+  <div id="user-info" style="display: none;">
+    <h2>Welcome, <span id="user-email"></span></h2>
+    <button onclick="logout()">Logout</button>
+  </div>
+  
+  <!-- Romance Mode Toggle -->
+  <button id="romance-mode-toggle" style="margin-bottom: 15px;">💕 Toggle Romance Mode</button>
+  
+  <!-- Welcome Message (shown when logged out) -->
+  <div id="welcome-section" style="display: none; text-align: center; padding: 20px;">
+    <h2>Welcome to Date Map!</h2>
+    <p>Log in to start planning your perfect dates</p>
+    <p>Or register to create your personal date map</p>
+  </div>
+  
+  <!-- Main Content (shown when logged in) -->
+  <div id="main-content" style="display: none;">
+    <h1 id="page-title">
+      <span class="heart">💖</span>
+      <span class="title-text">Date Ideas</span>
+      <span class="heart">💖</span>
+    </h1>
+    
     <form id="add-item-form">
       <input type="text" name="title" placeholder="Title" required>
       <input type="text" name="description" placeholder="Description"></input>
@@ -21,6 +59,7 @@
       <input type="text" name="tags" placeholder="Tags (comma separated)">
       <button type="submit">Add Date Idea</button>
     </form>
+    
     <form id="edit-item-form" style="display:none;">
       <input type="hidden" name="index">
       <input type="text" name="title" placeholder="Title" required>
@@ -31,25 +70,25 @@
       <button type="submit">Save Changes</button>
       <button type="button" onclick="cancelEdit()">Cancel</button>
     </form>
-    <button id="romance-mode-toggle">💕 Toggle Romance Mode</button>
-    <h2>Filters</h2>
+    
     <div id="progress-counter">0/0 completed</div>
     <div id="filters">
-  <label>
-    <input type="checkbox" id="show-completed" checked> Show completed items
-  </label>
-  <br>
-  <input type="text" id="search-input" placeholder="Search for a cute date...">
-  <select id="tag-filter">
-    <option value="">All Tags</option>
-    <!-- Tags will be populated dynamically -->
-  </select>
-</div>
+      <label>
+        <input type="checkbox" id="show-completed" checked> Show completed items
+      </label>
+      <br>
+      <input type="text" id="search-input" placeholder="Search for a cute date...">
+      <select id="tag-filter">
+        <option value="">All Tags</option>
+        <!-- Tags will be populated dynamically -->
+      </select>
+    </div>
     <div id="items-list"></div>
-    
   </div>
+</div>
   <div id="map"></div>
-  
+</div>
+
   <script>
 
     const romanceMapStyle = [
@@ -152,10 +191,152 @@
     let currentEditIndex = null;
     let currentItems = [];
 
-    async function initMap() {
-  const center = { lat: 51.5074, lng: -0.1278 };
+    // Auth functions
+function showLogin() {
+  document.getElementById('login-form').style.display = 'block';
+  document.getElementById('register-form').style.display = 'none';
+}
+
+function showRegister() {
+  document.getElementById('register-form').style.display = 'block';
+  document.getElementById('login-form').style.display = 'none';
+}
+
+async function login() {
+  const email = document.getElementById('login-email').value;
+  const password = document.getElementById('login-password').value;
+  
+  try {
+    const response = await fetch('/login', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({email, password})
+    });
+    
+    const data = await response.json();
+    if (data.status === 'success') {
+      // Update UI
+      document.getElementById('user-email').textContent = email;
+      document.getElementById('auth-section').style.display = 'none';
+      document.getElementById('user-info').style.display = 'block';
+      document.getElementById('main-content').style.display = 'block';
+      document.getElementById('welcome-section').style.display = 'none';
+      
+      // Fetch and render items
+      await fetchItemsAndRender();
+    } else {
+      alert(data.message || 'Login failed');
+    }
+  } catch (error) {
+    console.error('Login error:', error);
+    alert('Login failed. Please try again.');
+  }
+}
+
+async function register() {
+  const email = document.getElementById('register-email').value;
+  const password = document.getElementById('register-password').value;
+  
+  const response = await fetch('/register', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({email, password})
+  });
+  
+  const data = await response.json();
+  if (data.status === 'success') {
+    fetchItemsAndRender();
+    document.getElementById('user-email').textContent = email;
+    document.getElementById('auth-section').style.display = 'none';
+    document.getElementById('user-info').style.display = 'block';
+    document.getElementById('main-content').style.display = 'block';
+    document.getElementById('welcome-section').style.display = 'none';
+    fetchItemsAndRender();
+  } else {
+    alert(data.message || 'Registration failed');
+  }
+}
+
+async function logout() {
+  try {
+    await fetch('/logout');
+    // Reset UI state
+    document.getElementById('auth-section').style.display = 'block';
+    document.getElementById('user-info').style.display = 'none';
+    document.getElementById('main-content').style.display = 'none';
+    document.getElementById('welcome-section').style.display = 'block';
+    document.getElementById('login-form').style.display = 'block';
+    document.getElementById('register-form').style.display = 'none';
+    
+    // Clear items and reset map
+    currentItems = [];
+    renderItemsList([]);
+    createMarkers([]);
+    map.setCenter({lat: 20, lng: 0});
+    map.setZoom(2);
+  } catch (error) {
+    console.error('Logout failed:', error);
+  }
+}
+
+// Show auth section by default on load
+window.onload = () => {
+  // Initialize romance mode
+  if (localStorage.getItem('romance-mode') === 'enabled') {
+    document.body.classList.add('romance-mode');
+  }
+  
+  // Initialize authentication UI
+  showLogin();
+  
+  // Initialize map
+  initMap();
+  
+  // Check if user is already logged in
+  fetch('/api/items')
+    .then(res => {
+      if (res.ok) {
+        document.getElementById('auth-section').style.display = 'none';
+        document.getElementById('user-info').style.display = 'block';
+        document.getElementById('main-content').style.display = 'block';
+        document.getElementById('welcome-section').style.display = 'none';
+        fetchItemsAndRender();
+      } else {
+        document.getElementById('welcome-section').style.display = 'block';
+        document.getElementById('main-content').style.display = 'none';
+      }
+    })
+    .catch(() => {
+      document.getElementById('welcome-section').style.display = 'block';
+      document.getElementById('main-content').style.display = 'none';
+    });
+};
+
+    window.toggleCompleted = toggleCompleted;
+    window.deleteItem = deleteItem;
+    window.editItem = editItem;
+    window.cancelEdit = cancelEdit;
+
+ async function initMap() {
+  let center = { lat: 51.5074, lng: -0.1278 }; // Default to London
+  let zoom = 12;
+  
+  try {
+    // Check if user is logged in
+    const res = await fetch('/api/items');
+    if (!res.ok) {
+      // Not logged in - show world view
+      center = { lat: 20, lng: 0 };
+      zoom = 2;
+    }
+  } catch (error) {
+    console.error('Auth check failed:', error);
+    center = { lat: 20, lng: 0 };
+    zoom = 2;
+  }
+  
   map = new google.maps.Map(document.getElementById("map"), {
-    zoom: 12,
+    zoom: zoom,
     center: center,
     // Disable default UI to customize it
     disableDefaultUI: true,
@@ -166,6 +347,13 @@
     rotateControl: false,
     fullscreenControl: true
   });
+
+  map.addListener('click', (event) => {
+    if (document.body.classList.contains('romance-mode')) {
+      createFloatingHeart(event.latLng);
+    }
+  });
+
 
   applyMapStyleForTheme();
   
@@ -189,30 +377,6 @@ function applyMapStyleForTheme() {
   }
 }
 
-
-   function applyMapStyleForTheme() {
-  if (!map) return;
-  const isRomanceMode = document.body.classList.contains('romance-mode');
-  
-  map.setOptions({
-    styles: isRomanceMode ? romanceMapStyle : null
-  });
-  
-  
-  // Update existing markers
-  if (markers.length > 0) {
-    createMarkers(currentItems);
-  }
-}
-
-function addRomanceMapInteractions() {
-  if (!document.body.classList.contains('romance-mode')) return;
-  
-  // Add heart animation when clicking on the map
-  map.addListener('click', (event) => {
-    createFloatingHeart(event.latLng);
-  });
-}
 
 
     function extractAllTags(items) {
@@ -434,18 +598,27 @@ ${item.completed ? `
 }
 
 async function fetchItemsAndRender() {
-  const res = await fetch('/api/items');
-  const items = await res.json();
-  currentItems = items;
-  
-  // Update tags if needed
-  const newTags = extractAllTags(items);
-  if (newTags.length !== allTags.length || newTags.some((t, i) => t !== allTags[i])) {
-    allTags = newTags;
-    populateTagFilter(allTags);
+  try {
+    const res = await fetch('/api/items');
+    if (res.status === 401) {
+      // Not logged in
+      return;
+    }
+    
+    const items = await res.json();
+    currentItems = items;
+    
+    // Update tags if needed
+    const newTags = extractAllTags(items);
+    if (newTags.length !== allTags.length || newTags.some((t, i) => t !== allTags[i])) {
+      allTags = newTags;
+      populateTagFilter(allTags);
+    }
+    
+    updateFilters();
+  } catch (error) {
+    console.error('Failed to fetch items:', error);
   }
-  
-  updateFilters();
 }
 
 async function toggleCompleted(index) {
@@ -593,17 +766,7 @@ document.getElementById('tag-filter').addEventListener('change', (e) => {
   updateFilters();
 });
 
-    window.toggleCompleted = toggleCompleted;
-    window.deleteItem = deleteItem;
-    window.editItem = editItem;
-    window.cancelEdit = cancelEdit;
-    window.onload = initMap;
-    window.onload = () => {
-  if (localStorage.getItem('romance-mode') === 'enabled') {
-    document.body.classList.add('romance-mode');
-  }
-  initMap();
-};
+    
 
   
     document.getElementById('romance-mode-toggle').addEventListener('click', () => {
